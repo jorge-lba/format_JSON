@@ -1,22 +1,25 @@
 var fs = require('fs');
 
+const bLanguage = 'de';
+const bVersion = 'Schlachter';
+const arrayWay = ['books','JSON'];
+
+let way = `.`;
 const arrayBook =[];
 const jsCall = [];
-const bLanguage = 'pt-br';
-const bVersion = 'NVI';
 const jsonFile = bLanguage+bVersion;
 
-const getJSON = require(`./bible/JSONOriginal/${jsonFile}.json`);
+arrayWay.push(bLanguage);
+arrayWay.push(bVersion);
 
-const dirLanguage = `./bible/JSONNovo/${bLanguage}`;
-const dirVersion = `./bible/JSONNovo/${bLanguage}/${bVersion}`;
+const getJSON = require(`./bible/JSON/${jsonFile}.json`);
 
-if(!fs.existsSync(dirLanguage)){
-    fs.mkdirSync(dirLanguage);
-}
-
-if(!fs.existsSync(dirVersion)){
-    fs.mkdirSync(dirVersion);
+for(let a = 0; a < arrayWay.length; a++){
+    way += `/${arrayWay[a]}`
+    
+    if(!fs.existsSync(way)){
+        fs.mkdirSync(way)
+    }
 }
 
 const assentRemove = (text) =>{       
@@ -29,8 +32,6 @@ const assentRemove = (text) =>{
     text = text.replace(new RegExp('[Ç]','gi'), 'c');
     return text.replace(' ','').replace(' ', '').replace('1','I').replace('2','II').replace('3','III');                 
 };
-
-
 
 for (let w =0; w < getJSON.length; w++){
     
@@ -77,7 +78,7 @@ for (let w =0; w < getJSON.length; w++){
     jsCall.push(`${book} = require(\`./_${book}.json\`);`)
 
 
-    fs.writeFile(`./bible/JSONNovo/${bLanguage}/${bVersion}/_${book}.json`,`${JSON.stringify(obj)}`, function(err) {
+    fs.writeFile(`${way}/_${book}.json`,`${JSON.stringify(obj)}`, function(err) {
         if(err) {
             console.log(err);
         } else {
@@ -86,7 +87,7 @@ for (let w =0; w < getJSON.length; w++){
     });
 }
 
-fs.writeFile(`./bible/JSONNovo/${bLanguage}/${bVersion}/index.js`,`module.exports = () => {
+fs.writeFile(`${way}/index.js`,`module.exports = () => {
 
     ${jsCall.join(`
     `)} 
