@@ -1,7 +1,7 @@
 var fs = require('fs');
 
-const bLanguage = 'de';
-const bVersion = 'Schlachter';
+const bLanguage = 'ar';
+const bVersion = 'SVD';
 const arrayWay = ['books','JSON'];
 
 let way = `.`;
