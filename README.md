@@ -12,3 +12,4 @@ A alteração feita é mudar de padrão de array utilizado (chapter: [[verse 1, 
 Alem da formatação a aplicação cria um arquivo index.js para acessar os livros. Este arquivo exporta uma função que faz os require() e retorna um obj com os livros ({genesis,exedo, ...})
 
 O acesso dos arquivo são simples de serem feitos, deixei um exmplo com onde crio três acessos em idiomas diferentes e faz um console.log mostrando as versões  (/bible/JSONNovo/index.js)
+
